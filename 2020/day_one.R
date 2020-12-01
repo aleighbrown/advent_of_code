@@ -1,9 +1,10 @@
+library(data.table)
 #read in the data as a data.table
 day_1_input = fread("/Users/annaleigh/Documents/GitHub/advent_of_code/input/day_one",header = F)
 
 
 # part one of the puzzle --------------------------------------------------
-#small ehlper that uses shit to lag the values - I think this means that the longest will be the length of the input
+#small ehlper that uses shift to lag the values - I think this means that the longest will be the length of the input
 lagger <- function(dt,n){
     dt_cop = copy(dt)
     dt_cop$d2 = NULL
