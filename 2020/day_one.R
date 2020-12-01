@@ -4,7 +4,7 @@ day_1_input = fread("/Users/annaleigh/Documents/GitHub/advent_of_code/input/day_
 
 
 # part one of the puzzle --------------------------------------------------
-#small ehlper that uses shift to lag the values - I think this means that the longest will be the length of the input
+#small helper that uses shift to lag the values - I think this means that the longest will be the length of the input
 lagger <- function(dt,n){
     dt_cop = copy(dt)
     dt_cop$d2 = NULL
