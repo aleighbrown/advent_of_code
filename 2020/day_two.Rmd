@@ -1,0 +1,50 @@
+---
+title: "Day2"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(data.table)
+library()
+```
+--- Day 2: Password Philosophy ---
+Debug the incorrect passwords. 
+
+The rules are as follows. 
+
+How many passwords are valid according to their policies?
+
+I've saved my day2 input as a txt file. 
+
+Doing another `data.table` solution as I've been spending too much time in the tidyverse and don't want those skills to atrophy. 
+
+Part One is just some string splitting and counting
+```{r}
+day2 = fread("/Users/annaleigh/Documents/GitHub/advent_of_code/2020/input/day_two.txt",header = F)
+
+day2[,c("min","max") := tstrsplit(V1,"-")]
+day2[,min := as.numeric(min)]
+day2[,max := as.numeric(max)]
+
+day2[,required_letter := gsub(":","",V2)]
+
+day2[, count_req_let := lengths(regmatches(V3, gregexpr(required_letter, V3))), by = 1:nrow(day2)]
+part_one_ans = nrow(day2[count_req_let <= max & count_req_let >= min])
+```
+
+The correct number of passwords in my solution is `r part_one_ans`
+
+Part Two
+
+We'll take the table from above and use the `xor` operator
+```{r}
+day2[,let_min := substr(V3, min, min)]
+day2[,let_max := substr(V3, max, max)]
+part_two_ans = nrow(day2[xor(let_min == required_letter, let_max == required_letter)])
+```
+
+The correct number of passwords in my solution is `r part_two_ans`
